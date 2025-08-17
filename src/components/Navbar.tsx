@@ -1,25 +1,40 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
+import {
+  AppBar,
+  Toolbar,
+  Button,
+  Box,
+  IconButton,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Typography,
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
 import { usePathname, useRouter } from "next/navigation";
+import Image from "next/image";
 import Loader from "@/components/Loader";
+import logo from "../../public/psgmLogo.png"; // place your logo in /public/logo.png
 
 const Navbar = () => {
   const router = useRouter();
   const pathname = usePathname();
   const [loading, setLoading] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   useEffect(() => {
-  const stopLoading = () => setLoading(false);
-  window.addEventListener("loadingComplete", stopLoading);
-  return () => window.removeEventListener("loadingComplete", stopLoading);
-}, []);
-
+    const stopLoading = () => setLoading(false);
+    window.addEventListener("loadingComplete", stopLoading);
+    return () => window.removeEventListener("loadingComplete", stopLoading);
+  }, []);
 
   const handleNavClick = (href: string) => {
-
-     if (pathname === href) return;
+    if (pathname === href) return;
 
     if (href !== "/") {
       setLoading(true);
@@ -28,6 +43,7 @@ const Navbar = () => {
     } else {
       router.push("/");
     }
+    setDrawerOpen(false); // close drawer after navigation
   };
 
   const navItems = [
@@ -45,21 +61,15 @@ const Navbar = () => {
       <AppBar position="sticky" color="primary" elevation={0}>
         <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
           {/* Logo */}
-          <Typography
-            variant="h6"
-            sx={{
-              textDecoration: "none",
-              color: "white",
-              fontWeight: "bold",
-              cursor: "pointer",
-            }}
+          <Box
+            sx={{ display: "flex", flexDirection:'column', alignItems: "center", cursor: "pointer" }}
             onClick={() => handleNavClick("/")}
           >
-            PSGM
-          </Typography>
+            <Image src={logo} alt="PSGM Logo" width={60} height={70} />
+          </Box>
 
-          {/* Nav Links */}
-          <Box>
+          {/* Desktop Nav Links */}
+          <Box sx={{ display: { xs: "none", md: "flex" } }}>
             {navItems.map((item) => (
               <Button
                 key={item.href}
@@ -88,8 +98,57 @@ const Navbar = () => {
               </Button>
             ))}
           </Box>
+
+          {/* Mobile Menu Button */}
+          <IconButton
+            sx={{ display: { xs: "flex", md: "none" }, color: "white" }}
+            onClick={() => setDrawerOpen(true)}
+          >
+            <MenuIcon />
+          </IconButton>
         </Toolbar>
       </AppBar>
+
+      {/* Mobile Drawer */}
+      <Drawer
+        anchor="top"
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+        PaperProps={{
+          sx: {
+            bgcolor: "primary.main",
+            color: "white",
+            height: "100vh",
+          },
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+            p: 2,
+          }}
+        >
+          <IconButton onClick={() => setDrawerOpen(false)} sx={{ color: "white" }}>
+            <CloseIcon />
+          </IconButton>
+        </Box>
+        <List sx={{ textAlign: "center" }}>
+          {navItems.map((item) => (
+            <ListItem key={item.href} disablePadding>
+              <ListItemButton onClick={() => handleNavClick(item.href)}>
+                <ListItemText
+                  primary={item.label}
+                  primaryTypographyProps={{
+                    fontSize: "1.2rem",
+                    fontWeight: "bold",
+                  }}
+                />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
     </>
   );
 };

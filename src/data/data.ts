@@ -360,7 +360,7 @@ category: "Steel / Structural Steel / Strand Wire",
     category: "Chemical Tests In Water",
     tests:[
          { sno: 1, material: "Chemical Tests In Water", test: "Tests of water suitable for Construction purpose", method: "IS:456" },
-         { sno: 2, material: "Chemical Tests In Water", test: "Tests of water suitable for Portable purpose", method: "IS:10500" },
+         { sno: 2, material: "Chemical Tests In Water", test: "Tests of water suitable for Portable purpose", method: "IS:3025" },
     ]
   },
 ];

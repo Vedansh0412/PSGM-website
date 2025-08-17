@@ -35,10 +35,16 @@ export default function ClientsPartners() {
   return (
     <Box sx={{ py: 4 }}>
       <Typography
-        variant="h4"
+        component="h1" 
         align="center"
         gutterBottom
-        sx={{ fontWeight: "bold" }}
+        sx={{
+          fontWeight: "bold",
+          fontSize: {
+            xs: "1.5rem", 
+            md: "1.75rem", 
+          },
+        }}
       >
         Our Clients & Partners
       </Typography>

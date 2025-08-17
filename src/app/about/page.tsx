@@ -26,15 +26,15 @@ export default function AboutUs() {
         <Typography variant="h4" fontWeight="bold" gutterBottom>
           About PSGM Lab
         </Typography>
-         <Typography variant="body1" paragraph>
+         <Typography variant="body1"  paragraph>
         <strong>Registered Address:</strong> E-14, Vikram Colony, Ramghat Road, Aligarh – 202001
       </Typography>
-      <Typography variant="body1" paragraph>
+      <Typography variant="body1" sx={{textAlign:'justify'}} paragraph>
         Established in 2024, <em>M/s PSGM Testing Lab (OPC) Pvt. Ltd.</em> is dedicated to
         serving the construction industry with high-quality material testing services
         for both private and public sector projects.
       </Typography>
-      <Typography variant="body1" paragraph>
+      <Typography variant="body1" sx={{textAlign:'justify'}} paragraph>
         Our mission is to deliver <strong>cost-effective, high-quality</strong> testing
         solutions that ensure quality, durability, and safety in construction materials.
         We take pride in our highly qualified and knowledgeable team, with some

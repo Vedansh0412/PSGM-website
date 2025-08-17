@@ -31,45 +31,53 @@ export default function FacilitiesList() {
       {loading && <Loader />}
 
       <Typography
-        variant="h4"
+        component="h1" // SEO: always renders <h1>
         align="center"
         gutterBottom
-        sx={{ fontWeight: "bold" }}
+        sx={{
+          fontWeight: "bold",
+          fontSize: {
+            xs: "1.5rem",  // ≈ h6
+            md: "1.75rem", // ≈ h4
+          },
+        }}
       >
         Our Facilities & Tests
       </Typography>
 
       {categoryRows.map((row, rowIndex) => (
-        <Grid
-          container
-          spacing={2}
-          justifyContent="center"
-          key={rowIndex}
-          sx={{ mb: 2 }}
-        >
-          {row.map((cat, index) => (
-            <Grid size={{xs:12, sm:4, md:2}} key={index}>
-              <Button
-                variant="contained"
-                fullWidth
-                onClick={() => handleCategoryClick(cat.category)}
-                sx={{
-                  textTransform: "none",
-                  fontWeight: 500,
-                  borderRadius: 2,
-                  height: 50,
-                  whiteSpace: "normal",
-                }}
-              >
-                {cat.category}
-              </Button>
-            </Grid>
-          ))}
-          {row.length < 6 &&
-            Array.from({ length: 6 - row.length }).map((_, emptyIndex) => (
-              <Grid size={{xs:12, sm:4, md:2}} key={`empty-${emptyIndex}`} />
-            ))}
-        </Grid>
+       <Grid
+  container
+  spacing={2}
+  justifyContent="center"
+  key={rowIndex}
+  sx={{ mb: 2 }}
+>
+  {row.map((cat, index) => (
+    <Grid size={{xs:6, sm:6, md:2}} key={index}>
+      <Button
+        variant="contained"
+        fullWidth
+        onClick={() => handleCategoryClick(cat.category)}
+        sx={{
+          textTransform: "none",
+          fontWeight: 500,
+          borderRadius: 2,
+          height: 50,
+          whiteSpace: "normal",
+        }}
+      >
+        {cat.category}
+      </Button>
+    </Grid>
+  ))}
+
+  {row.length < 6 &&
+    Array.from({ length: 6 - row.length }).map((_, emptyIndex) => (
+      <Grid size={{xs:6, sm:6, md:2}} key={`empty-${emptyIndex}`} />
+    ))}
+</Grid>
+
       ))}
     </Box>
   );
