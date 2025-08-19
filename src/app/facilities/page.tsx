@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import {
   Container,
   Typography,
@@ -13,7 +13,7 @@ import {
   Paper,
   Box,
 } from "@mui/material";
-import { testsData } from "../../data/data"; // Ensure testsData follows the new shape
+import { testsData } from "../../data/data";
 
 type TestItem = {
   sno: number;
@@ -22,7 +22,8 @@ type TestItem = {
   method: string;
 };
 
-export default function FacilitiesPage() {
+// Component that actually uses useSearchParams
+function FacilitiesContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -75,16 +76,16 @@ export default function FacilitiesPage() {
         sx={{
           fontWeight: "bold",
           fontSize: {
-            xs: "1.25rem", // mobile ~ h6
-            sm: "1.5rem",  // tablet
-            md: "1.75rem", // desktop ~ h4
+            xs: "1.25rem",
+            sm: "1.5rem",
+            md: "1.75rem",
           },
         }}
       >
         Facilities & Tests
       </Typography>
 
-      {/* Categories Table (scrollable for small screens) */}
+      {/* Categories Table */}
       <Box sx={{ mt: 4, mb: 4, overflowX: { xs: "auto", md: "visible" } }}>
         <Paper sx={{ minWidth: { xs: "600px", md: "100%" } }}>
           <Table>
@@ -129,7 +130,7 @@ export default function FacilitiesPage() {
         </Paper>
       </Box>
 
-      {/* Tests Table (scrollable for mobile/tablet) */}
+      {/* Tests Table */}
       {tests.length > 0 && (
         <Box sx={{ overflowX: { xs: "auto", md: "visible" } }}>
           <Paper sx={{ mt: 4, minWidth: { xs: "800px", md: "100%" } }}>
@@ -165,5 +166,14 @@ export default function FacilitiesPage() {
         </Box>
       )}
     </Container>
+  );
+}
+
+// ✅ Wrap FacilitiesContent in Suspense
+export default function FacilitiesPage() {
+  return (
+    <Suspense fallback={<div>Loading facilities...</div>}>
+      <FacilitiesContent />
+    </Suspense>
   );
 }
