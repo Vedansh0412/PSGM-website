@@ -70,7 +70,7 @@ export default function ContactUsPage() {
   const handleCategoryToggle = (category: string) => {
     setFormData((prev) => {
       const exists = prev.categories.includes(category);
-      let updatedCategories = exists
+      const updatedCategories = exists
         ? prev.categories.filter((c) => c !== category)
         : [...prev.categories, category];
 

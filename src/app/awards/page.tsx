@@ -104,7 +104,7 @@ export default function AwardsPage() {
               sx={{ textAlign: "justify", lineHeight: 1.8 }}
             >
               Our laboratory holds ISO/IEC 17025:2017 accreditation. The NABL (National Accreditation Board for Testing and 
-                Calibration Laboratories) certificate is a formal recognition of a testing laboratory's technical competence and 
+                Calibration Laboratories) certificate is a formal recognition of a testing laboratory&apos;s technical competence and 
                 reliability in performing specific tests.
                 This accreditation signifies that a laboratory has demonstrated its ability to produce accurate and reliable test 
                 results through a rigorous third-party assessment process conducted by NABL assessors, evaluating aspects such as 
